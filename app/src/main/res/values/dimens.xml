@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="padding__4">4dp</dimen>
-    <dimen name="padding__6">6dp</dimen>
-    <dimen name="padding__8">8dp</dimen>
+    <dimen name="dimen__4">4dp</dimen>
+    <dimen name="dimen__6">6dp</dimen>
+    <dimen name="dimen__8">8dp</dimen>
+    <dimen name="dimen__10">10dp</dimen>
+    <dimen name="dimen__12">12dp</dimen>
+    <dimen name="dimen__16">16dp</dimen>
+    <dimen name="dimen__18">18dp</dimen>
     <dimen name="padding__default">16dp</dimen>
     <dimen name="padding__sm">12dp</dimen>
     <dimen name="padding__md">14dp</dimen>
