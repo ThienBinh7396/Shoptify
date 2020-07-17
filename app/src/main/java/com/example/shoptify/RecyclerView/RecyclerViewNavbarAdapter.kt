@@ -1,5 +1,6 @@
 package com.example.shoptify.RecyclerView
 
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +21,8 @@ class RecyclerViewNavbarAdapter :
     private var llNavbarContainer = view.findViewById<LinearLayout>(R.id.llNavbarContainer)
 
     fun initView(nav: Navbar) {
-      tvNav!!.text = nav.title
+      tvNav.text = nav.title
+      tvNav.setTextColor(if (nav.isActive) Color.WHITE else Color.BLACK)
       ibnCollapse.visibility = if (nav.subNav.size > 0) View.VISIBLE else View.INVISIBLE
 
       llNavbarContainer.setBackgroundResource(
