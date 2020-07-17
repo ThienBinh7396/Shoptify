@@ -2,12 +2,10 @@ package com.example.shoptify
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.shoptify.Fragment.HomeFragment
-import com.example.shoptify.Fragment.RecyclerItemClickListener
+import com.example.shoptify.RecyclerView.RecyclerItemClickListener
 import com.example.shoptify.RecyclerView.RecyclerViewNavbarAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,6 +20,8 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun initView() {
+    setSupportActionBar(findViewById(R.id.tbApp))
+
     rcvNavbarAdapter = RecyclerViewNavbarAdapter()
     navbarLinearLayoutManager = LinearLayoutManager(this@MainActivity)
 
@@ -31,16 +31,22 @@ class MainActivity : AppCompatActivity() {
     rcvNavbar.addOnItemTouchListener(
       RecyclerItemClickListener(
         this,
-        object : RecyclerItemClickListener.OnItemClickListener {
+        object :
+          RecyclerItemClickListener.OnItemClickListener {
           override fun onItemClick(view: View?, position: Int) {
-            Toast.makeText(this@MainActivity, "${position}", Toast.LENGTH_SHORT).show()
+            Constant.updateNavActive(position)
+            rcvNavbarAdapter.notifyDataSetChanged()
+            switchFragment()
           }
         })
     )
+    switchFragment()
+  }
 
-
-    supportFragmentManager.beginTransaction()
-      .replace(R.id.flMain, HomeFragment())
+  private fun switchFragment() {
+    var fragmentTransaction = supportFragmentManager.beginTransaction()
+    fragmentTransaction.setCustomAnimations(R.anim.enter_slide_fade_effect_from_half_size, R.anim.exit_slide_fade_effect_from_half_size)
+    fragmentTransaction.replace(R.id.flMain, Constant.switchFragmentByTitle())
       .commit()
   }
 }

@@ -1,4 +1,4 @@
-package com.example.shoptify.Fragment
+package com.example.shoptify.RecyclerView
 
 import android.content.Context
 import android.view.GestureDetector

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="app_height">52dp</dimen>
     <dimen name="dimen__4">4dp</dimen>
     <dimen name="dimen__6">6dp</dimen>
     <dimen name="dimen__8">8dp</dimen>
