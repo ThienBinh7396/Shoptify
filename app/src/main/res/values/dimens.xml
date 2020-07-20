@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="app_height">52dp</dimen>
-    <dimen name="dimen__4">4dp</dimen>
-    <dimen name="dimen__6">6dp</dimen>
-    <dimen name="dimen__8">8dp</dimen>
-    <dimen name="dimen__10">10dp</dimen>
-    <dimen name="dimen__12">12dp</dimen>
-    <dimen name="dimen__16">16dp</dimen>
-    <dimen name="dimen__18">18dp</dimen>
-    <dimen name="padding__default">16dp</dimen>
-    <dimen name="padding__sm">12dp</dimen>
-    <dimen name="padding__md">14dp</dimen>
+  <dimen name="toolbar_height">46dp</dimen>
+  <dimen name="dimen__4">4dp</dimen>
+  <dimen name="dimen__6">6dp</dimen>
+  <dimen name="dimen__8">8dp</dimen>
+  <dimen name="dimen__10">10dp</dimen>
+  <dimen name="dimen__12">12dp</dimen>
+  <dimen name="dimen__16">16dp</dimen>
+  <dimen name="dimen__18">18dp</dimen>
+
+  <dimen name="padding__xl">24dp</dimen>
+  <dimen name="padding__lg">20dp</dimen>
+  <dimen name="padding__default">16dp</dimen>
+  <dimen name="padding__sm">12dp</dimen>
+  <dimen name="padding__md">14dp</dimen>
+
+  <dimen name="fontSize__xs">10sp</dimen>
+  <dimen name="fontSize__sm">12sp</dimen>
+
+  <dimen name="dimen__2">2dp</dimen>
+  <dimen name="dimen__1">1dp</dimen>
+  <dimen name="dimen__24">24dp</dimen>
+  <dimen name="dimen__20">20dp</dimen>
 </resources>

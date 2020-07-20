@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <import type="android.view.View" />
+
+    <variable
+      name="mBreadcrumbLayoutViewModel"
+      type="com.example.shoptify.viewModel.BreadcrumbLayoutViewModel" />
+  </data>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorBackgroundSecondary"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/padding__default"
+    android:paddingVertical="@dimen/padding__sm"
+    tools:context=".ui.fragment.BreadcumFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rcvBreadcrumb"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:bindListBreadcrumbRecycleView="@{mBreadcrumbLayoutViewModel.listBreadcrumb}" />
+
+    <TextView
+      android:id="@+id/tvNavTitle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/dimen__6"
+      android:text="@{mBreadcrumbLayoutViewModel.title}"
+      android:textColor="@color/colorTextBlack"
+      android:textAllCaps="true"
+      android:textSize="28sp"
+      android:textStyle="bold"
+      android:visibility="@{ mBreadcrumbLayoutViewModel.title == null ? View.GONE : View.VISIBLE }" />
+  </LinearLayout>
+</layout>

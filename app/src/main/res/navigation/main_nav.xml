@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/main_nav"
+  app:startDestination="@id/homeFragment">
+
+  <fragment
+    android:id="@+id/shopFragment"
+    android:name="com.example.shoptify.ui.fragment.ShopFragment"
+    android:label="ShopFragment" >
+    <action
+      android:id="@+id/action_shopFragment_to_homeFragment"
+      app:destination="@id/homeFragment"
+      app:enterAnim="@anim/enter_slide_fade_effect_from_half_size"
+      app:exitAnim="@anim/exit_slide_fade_effect_from_half_size"/>
+  </fragment>
+  <fragment
+    android:id="@+id/homeFragment"
+    android:name="com.example.shoptify.ui.fragment.HomeFragment"
+    android:label="fragment_home"
+    tools:layout="@layout/fragment_home">
+    <action
+      android:id="@+id/action_homeFragment_to_shopFragment"
+      app:destination="@id/shopFragment"
+      app:enterAnim="@anim/enter_slide_fade_effect_from_half_size"
+      app:exitAnim="@anim/exit_slide_fade_effect_from_half_size"/>
+  </fragment>
+</navigation>

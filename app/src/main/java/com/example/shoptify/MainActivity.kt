@@ -3,50 +3,63 @@ package com.example.shoptify
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.shoptify.RecyclerView.RecyclerItemClickListener
-import com.example.shoptify.RecyclerView.RecyclerViewNavbarAdapter
+import com.example.shoptify.common.HelperData
+import com.example.shoptify.ui.fragment.AppbarFragment
+import com.example.shoptify.adapter.recyclerView.RecyclerItemClickListener
+import com.example.shoptify.adapter.recyclerView.RecyclerViewNavbarAdapter
+import com.example.shoptify.databinding.ActivityMainBinding
+import com.example.shoptify.store.action.AppAction
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
-  lateinit var rcvNavbarAdapter: RecyclerViewNavbarAdapter
-  lateinit var navbarLinearLayoutManager: LinearLayoutManager
+class MainActivity : AppCompatActivity(){
+  private lateinit var rcvNavbarAdapter: RecyclerViewNavbarAdapter
+  private lateinit var navbarLinearLayoutManager: LinearLayoutManager
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
 
-    initView()
+    DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+
+    initViewData()
+    initViewListener()
   }
 
-  private fun initView() {
-    setSupportActionBar(findViewById(R.id.tbApp))
+  override fun onDestroy() {
+    super.onDestroy()
+
+    HelperData.currentNavController = null
+  }
+
+  private fun initViewData() {
+    HelperData.currentNavController = findNavController(R.id.nav_host)
 
     rcvNavbarAdapter = RecyclerViewNavbarAdapter()
+    HelperData.rcvNavbarAdapter = rcvNavbarAdapter
+
     navbarLinearLayoutManager = LinearLayoutManager(this@MainActivity)
 
     rcvNavbar.layoutManager = navbarLinearLayoutManager
     rcvNavbar.adapter = rcvNavbarAdapter
 
+    (frAppbar as AppbarFragment).updateDrawerLayout(dlMenu)
+  }
+
+  private fun initViewListener() {
     rcvNavbar.addOnItemTouchListener(
       RecyclerItemClickListener(
         this,
         object :
           RecyclerItemClickListener.OnItemClickListener {
           override fun onItemClick(view: View?, position: Int) {
-            Constant.updateNavActive(position)
+            HelperData.updateNavActive(position)
             rcvNavbarAdapter.notifyDataSetChanged()
-            switchFragment()
+
+            HelperData.navigateByTitle(HelperData.NAV_BAR[position].title)
           }
         })
     )
-    switchFragment()
-  }
-
-  private fun switchFragment() {
-    var fragmentTransaction = supportFragmentManager.beginTransaction()
-    fragmentTransaction.setCustomAnimations(R.anim.enter_slide_fade_effect_from_half_size, R.anim.exit_slide_fade_effect_from_half_size)
-    fragmentTransaction.replace(R.id.flMain, Constant.switchFragmentByTitle())
-      .commit()
   }
 }

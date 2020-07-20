@@ -1,7 +1,6 @@
-package com.example.shoptify.RecyclerView
+package com.example.shoptify.adapter.recyclerView
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +8,8 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shoptify.Constant
-import com.example.shoptify.Navbar
+import com.example.shoptify.common.HelperData
+import com.example.shoptify.common.Navbar
 import com.example.shoptify.R
 
 class RecyclerViewNavbarAdapter :
@@ -39,10 +38,10 @@ class RecyclerViewNavbarAdapter :
     return NavbarAdapterViewHolder(view)
   }
 
-  override fun getItemCount(): Int = Constant.NAV_BAR.size
+  override fun getItemCount(): Int = HelperData.NAV_BAR.size
 
   override fun onBindViewHolder(holder: NavbarAdapterViewHolder, position: Int) {
-    var nav = Constant.NAV_BAR[position]
+    var nav = HelperData.NAV_BAR[position]
     holder.initView(nav)
   }
 

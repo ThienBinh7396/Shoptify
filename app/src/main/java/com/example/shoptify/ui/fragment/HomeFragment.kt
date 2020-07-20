@@ -1,4 +1,4 @@
-package com.example.shoptify.Fragment
+package com.example.shoptify.ui.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

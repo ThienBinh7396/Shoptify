@@ -1,4 +1,4 @@
-package com.example.shoptify.RecyclerView
+package com.example.shoptify.adapter.recyclerView
 
 import android.content.Context
 import android.view.GestureDetector
@@ -18,7 +18,13 @@ class RecyclerItemClickListener(
     fun onItemClick(view: View?, position: Int)
   }
 
-  var mGestureDetector: GestureDetector
+  private var mGestureDetector: GestureDetector = GestureDetector(context, object : SimpleOnGestureListener() {
+    override fun onSingleTapUp(e: MotionEvent): Boolean {
+      // detect a single tap up
+      return true
+    }
+  })
+
   override fun onInterceptTouchEvent(view: RecyclerView, e: MotionEvent): Boolean {
     // get View child clicked by position X Y
     val childView = view.findChildViewUnder(e.x, e.y)
@@ -35,11 +41,5 @@ class RecyclerItemClickListener(
 
   init {
     // create GestureDetector
-    mGestureDetector = GestureDetector(context, object : SimpleOnGestureListener() {
-      override fun onSingleTapUp(e: MotionEvent): Boolean {
-        // detect a single tap up
-        return true
-      }
-    })
   }
 }
