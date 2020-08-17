@@ -99,7 +99,5 @@ class SlideShowItemFragment(private val positionSlide: Int) : Fragment() {
     super.onDestroyView()
 
     isDestroy = true
-
-    Log.d("Binh", "Slide show destroy")
   }
 }

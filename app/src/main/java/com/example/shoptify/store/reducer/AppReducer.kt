@@ -1,5 +1,6 @@
 package com.example.shoptify.store.reducer
 
+import android.util.Log
 import com.example.shoptify.common.*
 import com.example.shoptify.model.CategoryListResponse
 import com.example.shoptify.model.ProductListResponse
@@ -19,10 +20,13 @@ fun appReducer(action: Action, appState: AppState?): AppState{
         loadingDialog =  LoadingDialog(context =  action.context)
       )
 
-    is AppAction.UPDATE_IS_SHOW_LOADING_DIALOG ->
+    is AppAction.UPDATE_IS_SHOW_LOADING_DIALOG -> {
       _appState = _appState.copy(
         isShowLoadingDialog = action.isLoading
       )
+
+      Log.d("Binh", "Update loading ${action.isLoading}")
+    }
 
     is AppAction.UPDATE_IS_FIRST_FETCH_DATA ->
       _appState = _appState.copy(

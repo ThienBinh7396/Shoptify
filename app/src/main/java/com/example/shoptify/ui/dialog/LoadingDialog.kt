@@ -11,7 +11,9 @@ import com.example.shoptify.R
 class LoadingDialog(context: Context) {
   private var dialog: Dialog? = null
 
-  private lateinit var rootView: View
+  private var rootView: View
+
+  private var isShowing = false
 
   init {
     dialog = Dialog(context)
@@ -24,10 +26,16 @@ class LoadingDialog(context: Context) {
   }
 
   fun showDialog() {
-    dialog?.show()
+    if (!isShowing) {
+        dialog?.show()
+    }
+
+    isShowing = true
   }
 
   fun hideDialog() {
     dialog?.dismiss()
+
+    isShowing = false
   }
 }

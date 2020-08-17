@@ -11,6 +11,7 @@ import com.example.shoptify.model.Breadcrumb
 import com.example.shoptify.R
 import com.example.shoptify.databinding.FragmentShopBinding
 import com.example.shoptify.viewModel.BreadcrumbLayoutViewModel
+import com.example.shoptify.viewModel.FragmentShopViewModel
 
 class ShopFragment : Fragment() {
   private lateinit var listBreadcrumb: MutableList<Breadcrumb>
@@ -18,6 +19,8 @@ class ShopFragment : Fragment() {
   private lateinit var mBreadcrumbLayoutViewModel: BreadcrumbLayoutViewModel
 
   private lateinit var mFragmentShopBinding: FragmentShopBinding
+
+  private lateinit var mFragmentShopViewModel: FragmentShopViewModel
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -30,12 +33,15 @@ class ShopFragment : Fragment() {
       false
     )
 
+    mFragmentShopViewModel = FragmentShopViewModel()
+    mFragmentShopBinding.mFragmentShopViewModel = mFragmentShopViewModel
+
     initView()
 
     return mFragmentShopBinding.root
   }
 
-  fun initView() {
+  private fun initView() {
     listBreadcrumb = mutableListOf(
       Breadcrumb("Home"),
       Breadcrumb("Products")

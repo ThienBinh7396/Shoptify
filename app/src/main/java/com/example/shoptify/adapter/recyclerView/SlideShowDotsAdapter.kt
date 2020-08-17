@@ -12,8 +12,8 @@ import com.example.shoptify.common.HelperData
 import com.example.shoptify.R
 import com.example.shoptify.common.SlideCaption
 
-class RecyclerViewSlideShowDotsAdapter(var context: Context) :
-  RecyclerView.Adapter<RecyclerViewSlideShowDotsAdapter.RecyclerViewShideShowDotsViewHolder>() {
+class SlideShowDotsAdapter(var context: Context) :
+  RecyclerView.Adapter<SlideShowDotsAdapter.RecyclerViewShideShowDotsViewHolder>() {
 
   class RecyclerViewShideShowDotsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val ivDotBackground: ImageView = view.findViewById(R.id.ivDotBackground)

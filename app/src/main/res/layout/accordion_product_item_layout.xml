@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <data>
+
+    <variable
+      name="mAccordionListDataModel"
+      type="com.example.shoptify.common.AccordionListDataModel" />
+  </data>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/dimen__1"
+    android:layout_marginBottom="@dimen/dimen__16"
+    android:background="@drawable/accordion_card_view_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:padding="@dimen/dimen__12">
+
+      <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dimen__4"
+        android:src="@drawable/ic_baseline_crop_portrait_24"
+        android:tint="#f1ba27" />
+
+      <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="@{mAccordionListDataModel.title}"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextBlack"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+      <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/dimen__4"
+        android:scaleType="centerCrop"
+        android:src="@{mAccordionListDataModel.isCollapsed ? @drawable/ic_baseline_arrow_drop_up_24 : @drawable/ic_baseline_arrow_drop_down_24}" />
+    </LinearLayout>
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/dimen__1"
+      android:background="@color/colorBlack" />
+
+    <androidx.cardview.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:bindCollapsedCardView="@{mAccordionListDataModel.isCollapsed}"
+      android:visibility="gone">
+
+      <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bindAccordionSingleData="@{mAccordionListDataModel.data}" />
+    </androidx.cardview.widget.CardView>
+  </LinearLayout>
+</layout>

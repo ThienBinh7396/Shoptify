@@ -1,11 +1,8 @@
 package com.example.shoptify.common
 
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.example.shoptify.R
-import com.example.shoptify.adapter.recyclerView.RecyclerViewNavbarAdapter
-import com.example.shoptify.ui.fragment.HomeFragment
-import com.example.shoptify.ui.fragment.ShopFragment
+import com.example.shoptify.adapter.recyclerView.NavbarAdapter
 
 data class Navbar(
   val title: String,
@@ -33,7 +30,7 @@ class HelperData {
 
     private var currentNavTitle = "Home"
     var currentNavController: NavController? = null
-    var rcvNavbarAdapter: RecyclerViewNavbarAdapter? =null
+    var rcvNavbarAdapter: NavbarAdapter? =null
 
     var mapNavTitleWithNavigationAction = mapOf(
       "Home" to mapOf(

@@ -1,29 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools">
 
-  <LinearLayout
+  <data>
+
+    <variable
+      name="mFragmentShopViewModel"
+      type="com.example.shoptify.viewModel.FragmentShopViewModel" />
+  </data>
+
+  <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.fragment.ShopFragment"
-    android:paddingVertical="@dimen/padding__xl">
+    android:nestedScrollingEnabled="true"
+    tools:targetApi="lollipop">
 
-    <ImageView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:src="@drawable/header_logo"
-      android:layout_marginHorizontal="@dimen/padding__default"
-      android:layout_marginStart="@dimen/dimen__12"
-      android:layout_marginBottom="@dimen/dimen__16"
-      android:scaleType="centerInside"
-      android:scaleX="0.96"
-      android:scaleY="0.96"/>
-
-    <include
-      android:id="@+id/layoutBreadcrumb"
-      layout="@layout/breadcrumb_layout"
+    <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content" />
-  </LinearLayout>
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:paddingVertical="@dimen/padding__xl"
+      tools:context=".ui.fragment.ShopFragment">
+
+      <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/padding__default"
+        android:layout_marginStart="@dimen/dimen__12"
+        android:layout_marginBottom="@dimen/dimen__16"
+        android:scaleType="centerInside"
+        android:scaleX="0.96"
+        android:scaleY="0.96"
+        android:src="@drawable/header_logo" />
+
+      <include
+        android:id="@+id/layoutBreadcrumb"
+        layout="@layout/breadcrumb_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding__default">
+
+        <androidx.recyclerview.widget.RecyclerView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:bindAccordionProductData="@{mFragmentShopViewModel.listAccordionData}" />
+      </LinearLayout>
+    </LinearLayout>
+  </ScrollView>
 </layout>

@@ -15,4 +15,5 @@
 
     <color name="colorTransparent">#00000000</color>
     <color name="colorBlack">#000000</color>
+  <color name="colorBorder">#e0e0e0</color>
 </resources>

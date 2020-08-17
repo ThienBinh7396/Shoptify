@@ -12,8 +12,8 @@ import com.example.shoptify.common.HelperData
 import com.example.shoptify.common.Navbar
 import com.example.shoptify.R
 
-class RecyclerViewNavbarAdapter :
-  RecyclerView.Adapter<RecyclerViewNavbarAdapter.NavbarAdapterViewHolder>() {
+class NavbarAdapter :
+  RecyclerView.Adapter<NavbarAdapter.NavbarAdapterViewHolder>() {
   class NavbarAdapterViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
     private var tvNav: TextView = view.findViewById(R.id.tvNav)
     private var ibnCollapse: ImageButton = view.findViewById(R.id.ibnCollapse)

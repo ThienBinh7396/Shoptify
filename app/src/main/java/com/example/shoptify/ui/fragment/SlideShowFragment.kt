@@ -14,7 +14,7 @@ import androidx.viewpager.widget.ViewPager
 import com.example.shoptify.common.HelperData
 import com.example.shoptify.R
 import com.example.shoptify.adapter.recyclerView.RecyclerItemClickListener
-import com.example.shoptify.adapter.recyclerView.RecyclerViewSlideShowDotsAdapter
+import com.example.shoptify.adapter.recyclerView.SlideShowDotsAdapter
 import com.example.shoptify.adapter.viewPager.SlideShowViewPagerAdapter
 
 class SlideShowFragment : Fragment() {
@@ -23,7 +23,7 @@ class SlideShowFragment : Fragment() {
   private lateinit var vpSlideShow: ViewPager
   private lateinit var rcvDots: RecyclerView
   private lateinit var slideShowAdapter: SlideShowViewPagerAdapter
-  private lateinit var slideShowDotAdapter: RecyclerViewSlideShowDotsAdapter
+  private lateinit var slideShowDotAdapter: SlideShowDotsAdapter
   private lateinit var linearLayoutManager: LinearLayoutManager
 
   private lateinit var intervalHandler: Handler
@@ -47,7 +47,7 @@ class SlideShowFragment : Fragment() {
 
     rcvDots = view.findViewById(R.id.rcvDots)
     linearLayoutManager = LinearLayoutManager(requireContext())
-    slideShowDotAdapter = RecyclerViewSlideShowDotsAdapter(requireContext())
+    slideShowDotAdapter = SlideShowDotsAdapter(requireContext())
 
     rcvDots.layoutManager = linearLayoutManager
     linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
