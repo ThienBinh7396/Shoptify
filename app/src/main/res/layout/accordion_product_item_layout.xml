@@ -10,18 +10,23 @@
   </data>
 
   <LinearLayout
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/dimen__1"
-    android:layout_marginBottom="@dimen/dimen__16"
+    android:layout_marginVertical="@dimen/dimen__16"
     android:background="@drawable/accordion_card_view_background"
     android:orientation="vertical">
 
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:background="?attr/selectableItemBackground"
+      android:clickable="true"
+      android:focusable="true"
       android:orientation="horizontal"
-      android:padding="@dimen/dimen__12">
+      android:padding="@dimen/dimen__12"
+      android:id="@+id/header_layout">
 
       <ImageView
         android:layout_width="wrap_content"
@@ -54,16 +59,16 @@
       android:layout_height="@dimen/dimen__1"
       android:background="@color/colorBlack" />
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      app:bindCollapsedCardView="@{mAccordionListDataModel.isCollapsed}"
-      android:visibility="gone">
+      android:background="@color/colorTransparent"
+      app:bindCollapsedGroupView="@{mAccordionListDataModel.isCollapsed}">
 
       <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:bindAccordionSingleData="@{mAccordionListDataModel.data}" />
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
   </LinearLayout>
 </layout>

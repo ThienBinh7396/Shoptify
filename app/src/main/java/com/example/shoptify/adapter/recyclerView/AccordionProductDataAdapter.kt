@@ -11,15 +11,28 @@ import com.example.shoptify.common.AccordionListDataModel
 import com.example.shoptify.databinding.AccordionProductItemLayoutBinding
 
 class AccordionProductDataAdapter(accordionListDataModel: MutableList<AccordionListDataModel>) :
-  RecyclerView.Adapter<AccordionProductDataAdapter.AccordionProductDataViewHolder>() {
+  RecyclerView.Adapter<AccordionProductDataAdapter.AccordionProductDataViewHolder>(),
+  IAccordionProductDataEventListener {
   private val mAccordionListDataModel: MutableList<AccordionListDataModel> = accordionListDataModel
 
-  class AccordionProductDataViewHolder(private val binding: AccordionProductItemLayoutBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+  class AccordionProductDataViewHolder(
+    private val binding: AccordionProductItemLayoutBinding,
+    private val eventListener: IAccordionProductDataEventListener
+  ) :
+    RecyclerView.ViewHolder(binding.container) {
 
-    fun bindingData(data: AccordionListDataModel) {
-      Log.d("Binh", "Data: $data")
+    private var positionData: Int = -1
 
+    init {
+      binding.headerLayout.setOnClickListener {
+
+        if (positionData != -1)
+          eventListener.onHeaderClickListener(positionData)
+      }
+    }
+
+    fun bindingData(data: AccordionListDataModel, position: Int) {
+      positionData = position
       binding.mAccordionListDataModel = data
     }
   }
@@ -32,15 +45,16 @@ class AccordionProductDataAdapter(accordionListDataModel: MutableList<AccordionL
       DataBindingUtil.inflate(
         LayoutInflater.from(parent.context),
         R.layout.accordion_product_item_layout,
-        parent,
+        null,
         false
-      )
+      ),
+      this
     )
 
   override fun getItemCount(): Int = mAccordionListDataModel.size
 
   override fun onBindViewHolder(holder: AccordionProductDataViewHolder, position: Int) {
-    holder.bindingData(mAccordionListDataModel[position])
+    holder.bindingData(mAccordionListDataModel[position], position)
   }
 
   fun updateList(data: MutableList<AccordionListDataModel>) {
@@ -51,6 +65,16 @@ class AccordionProductDataAdapter(accordionListDataModel: MutableList<AccordionL
     mAccordionListDataModel.clear()
 
     diffResult.dispatchUpdatesTo(this)
+  }
+
+  override fun onHeaderClickListener(position: Int) {
+    if (position < mAccordionListDataModel.size){
+      Log.d("Binh", "Click: ${mAccordionListDataModel.size} $position ${mAccordionListDataModel[position].isCollapsed}")
+
+      mAccordionListDataModel[position].isCollapsed = !mAccordionListDataModel[position].isCollapsed
+      notifyItemChanged(position)
+
+    }
   }
 
   class AccordionProductDataDiffCallback(
@@ -67,4 +91,8 @@ class AccordionProductDataAdapter(accordionListDataModel: MutableList<AccordionL
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
       oldList[oldItemPosition].title == newList[newItemPosition].title && oldList[oldItemPosition].isCollapsed == newList[newItemPosition].isCollapsed
   }
+}
+
+interface IAccordionProductDataEventListener {
+  fun onHeaderClickListener(position: Int)
 }
