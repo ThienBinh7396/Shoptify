@@ -1,8 +1,14 @@
 package com.example.shoptify.adapter.recyclerView
 
+import android.content.Context
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -10,14 +16,15 @@ import com.example.shoptify.R
 import com.example.shoptify.common.AccordionListDataModel
 import com.example.shoptify.databinding.AccordionProductItemLayoutBinding
 
-class AccordionProductDataAdapter(accordionListDataModel: MutableList<AccordionListDataModel>) :
-  RecyclerView.Adapter<AccordionProductDataAdapter.AccordionProductDataViewHolder>(),
-  IAccordionProductDataEventListener {
+class AccordionProductDataAdapter(
+  accordionListDataModel: MutableList<AccordionListDataModel>,
+  context: Context
+) :
+  RecyclerView.Adapter<AccordionProductDataAdapter.AccordionProductDataViewHolder>() {
   private val mAccordionListDataModel: MutableList<AccordionListDataModel> = accordionListDataModel
 
   class AccordionProductDataViewHolder(
-    private val binding: AccordionProductItemLayoutBinding,
-    private val eventListener: IAccordionProductDataEventListener
+    private val binding: AccordionProductItemLayoutBinding
   ) :
     RecyclerView.ViewHolder(binding.container) {
 
@@ -25,9 +32,14 @@ class AccordionProductDataAdapter(accordionListDataModel: MutableList<AccordionL
 
     init {
       binding.headerLayout.setOnClickListener {
+        if (positionData != -1) {
+          TransitionManager.beginDelayedTransition(binding.content, AutoTransition())
 
-        if (positionData != -1)
-          eventListener.onHeaderClickListener(positionData)
+          binding.expandView.visibility =
+            if (binding.expandView.visibility == View.GONE) View.VISIBLE else View.GONE
+          binding.imvIcon.setImageResource(if (binding.expandView.visibility == View.GONE) R.drawable.ic_baseline_arrow_drop_down_24 else R.drawable.ic_baseline_arrow_drop_up_24)
+
+        }
       }
     }
 
@@ -45,10 +57,9 @@ class AccordionProductDataAdapter(accordionListDataModel: MutableList<AccordionL
       DataBindingUtil.inflate(
         LayoutInflater.from(parent.context),
         R.layout.accordion_product_item_layout,
-        null,
+        parent,
         false
-      ),
-      this
+      )
     )
 
   override fun getItemCount(): Int = mAccordionListDataModel.size
@@ -63,36 +74,24 @@ class AccordionProductDataAdapter(accordionListDataModel: MutableList<AccordionL
     val diffResult = DiffUtil.calculateDiff(diffCallback)
 
     mAccordionListDataModel.clear()
+    mAccordionListDataModel.addAll(data)
 
     diffResult.dispatchUpdatesTo(this)
   }
 
-  override fun onHeaderClickListener(position: Int) {
-    if (position < mAccordionListDataModel.size){
-      Log.d("Binh", "Click: ${mAccordionListDataModel.size} $position ${mAccordionListDataModel[position].isCollapsed}")
-
-      mAccordionListDataModel[position].isCollapsed = !mAccordionListDataModel[position].isCollapsed
-      notifyItemChanged(position)
-
-    }
-  }
 
   class AccordionProductDataDiffCallback(
     private val oldList: MutableList<AccordionListDataModel>,
     private val newList: MutableList<AccordionListDataModel>
   ) : DiffUtil.Callback() {
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-      oldList[oldItemPosition] == newList[newItemPosition]
+      oldList[oldItemPosition].title == newList[newItemPosition].title
 
     override fun getOldListSize(): Int = oldList.size
 
     override fun getNewListSize(): Int = newList.size
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-      oldList[oldItemPosition].title == newList[newItemPosition].title && oldList[oldItemPosition].isCollapsed == newList[newItemPosition].isCollapsed
+      oldList[oldItemPosition].title == newList[newItemPosition].title
   }
-}
-
-interface IAccordionProductDataEventListener {
-  fun onHeaderClickListener(position: Int)
 }

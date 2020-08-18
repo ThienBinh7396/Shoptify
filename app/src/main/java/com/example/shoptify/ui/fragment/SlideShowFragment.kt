@@ -18,7 +18,7 @@ import com.example.shoptify.adapter.recyclerView.SlideShowDotsAdapter
 import com.example.shoptify.adapter.viewPager.SlideShowViewPagerAdapter
 
 class SlideShowFragment : Fragment() {
-  private var TIME_DELAY = 4500L
+  private var TIME_DELAY = 5500L
 
   private lateinit var vpSlideShow: ViewPager
   private lateinit var rcvDots: RecyclerView

@@ -1,5 +1,7 @@
 package com.example.shoptify.store.state
 
+import com.example.shoptify.common.AccordionListDataModel
+import com.example.shoptify.common.HelperAccordionProductData
 import com.example.shoptify.model.CategoryListResponse
 import com.example.shoptify.model.ProductListResponse
 import com.example.shoptify.model.ProductStatusListResponse
@@ -14,5 +16,6 @@ data class AppState(
   var productListResponse: ProductListResponse? = null,
   var categoryListResponse: CategoryListResponse? = null,
   var productStatusListResponse: ProductStatusListResponse? = null,
-  var vendorListResponse: VendorListResponse? = null
+  var vendorListResponse: VendorListResponse? = null,
+  var listAccordionProductData: MutableList<AccordionListDataModel> = HelperAccordionProductData.getInstance()
 ) : StateType

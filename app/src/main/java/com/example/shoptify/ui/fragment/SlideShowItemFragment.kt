@@ -74,7 +74,7 @@ class SlideShowItemFragment(private val positionSlide: Int) : Fragment() {
       alpha = 0f
       translationY = 100f
       visibility = View.VISIBLE
-      animate().alpha(1f).translationY(0f).setStartDelay(1000L).setDuration(1000L).setListener(null)
+      animate().alpha(1f).translationY(0f).setStartDelay(700L).setDuration(1000L).setListener(null)
     }
   }
 

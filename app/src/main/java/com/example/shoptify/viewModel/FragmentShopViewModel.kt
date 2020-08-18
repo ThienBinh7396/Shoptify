@@ -1,6 +1,8 @@
 package com.example.shoptify.viewModel
 
+import android.util.Log
 import androidx.databinding.BaseObservable
+import com.example.shoptify.BR
 import com.example.shoptify.common.AccordionDataModel
 import com.example.shoptify.common.HelperAccordionProductData
 import com.example.shoptify.store
@@ -8,7 +10,7 @@ import com.example.shoptify.store.state.AppState
 import org.rekotlin.StoreSubscriber
 
 class FragmentShopViewModel: BaseObservable(), StoreSubscriber<AppState> {
-  private val mAccordionListDataModelInstance = HelperAccordionProductData.getInstance()
+  private var mAccordionListDataModelInstance = store.state.appState.listAccordionProductData
 
   init {
     store.subscribe(this){
@@ -22,25 +24,7 @@ class FragmentShopViewModel: BaseObservable(), StoreSubscriber<AppState> {
     get() = this.mAccordionListDataModelInstance
 
   override fun newState(state: AppState) {
-    state.categoryListResponse?.apply {
-      mAccordionListDataModelInstance[0].data = docs.map {
-        AccordionDataModel(
-          title = it.title,
-          amount =  it.count_product
-        )
-      }.toMutableList()
-
-      notifyChange()
-    }
-
-    state.vendorListResponse?.apply {
-      mAccordionListDataModelInstance[1].data = docs.map {
-        AccordionDataModel(
-          title = it.title,
-          amount =  it.count_product
-        )
-      }.toMutableList()
-      notifyChange()
-    }
+    mAccordionListDataModelInstance = state.listAccordionProductData
+    notifyChange()
   }
 }

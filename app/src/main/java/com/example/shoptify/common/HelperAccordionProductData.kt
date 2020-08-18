@@ -7,7 +7,6 @@ data class AccordionDataModel(
 
 data class AccordionListDataModel(
   val title: String,
-  var isCollapsed: Boolean = false,
   var data: MutableList<AccordionDataModel> = mutableListOf()
 )
 

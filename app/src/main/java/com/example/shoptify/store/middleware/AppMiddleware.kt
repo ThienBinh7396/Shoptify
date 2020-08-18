@@ -1,10 +1,7 @@
 package com.example.shoptify.store.middleware
 
 import android.util.Log
-import com.example.shoptify.common.CATEGORY_RESPONSE
-import com.example.shoptify.common.PRODUCT_RESPONSE
-import com.example.shoptify.common.PRODUCT_STATUS_RESPONSE
-import com.example.shoptify.common.VENDOR_RESPONSE
+import com.example.shoptify.common.*
 import com.example.shoptify.model.*
 import com.example.shoptify.model.api.APIUtils
 import com.example.shoptify.store
@@ -66,7 +63,11 @@ fun fetchDataFromServerByType(type: String, dispatch: DispatchFunction) {
 }
 
 fun fetchCategoryDataFromServe(dispatch: DispatchFunction) {
-  if(!store.state.appState.isShowLoadingDialog) dispatch(AppAction.UPDATE_IS_SHOW_LOADING_DIALOG(true))
+  if (!store.state.appState.isShowLoadingDialog) dispatch(
+    AppAction.UPDATE_IS_SHOW_LOADING_DIALOG(
+      true
+    )
+  )
 
   store.state.appState.apply {
     APIUtils.getAPIService().apply {
@@ -76,7 +77,7 @@ fun fetchCategoryDataFromServe(dispatch: DispatchFunction) {
       fetchCategories(if (categoryListResponse == null) 1 else categoryListResponse?.nextPage)
         .enqueue(object : Callback<CategoryListAPIResponse> {
           override fun onFailure(call: Call<CategoryListAPIResponse>, t: Throwable) {
-              Log.d("Binh", "Faild category: ${t.message}")
+            Log.d("Binh", "Faild category: ${t.message}")
 
           }
 
@@ -90,6 +91,15 @@ fun fetchCategoryDataFromServe(dispatch: DispatchFunction) {
               if (categoryListResponse != null) {
                 data.docs.addAll(0, categoryListResponse!!.docs)
               }
+
+              listAccordionProductData[0].data = data.docs.map {
+                AccordionDataModel(
+                  title = it.title,
+                  amount = it.count_product
+                )
+              }.toMutableList()
+
+              dispatch(AppAction.UPDATE_LIST_ACCORDION_PRODUCT_DATA(listAccordionProductData))
 
               dispatch(
                 AppAction.UPDATE_BASE_STORE_DATA(
@@ -161,6 +171,15 @@ fun fetchVendorDataFromServe(dispatch: DispatchFunction) {
               if (vendorListResponse != null) {
                 data.docs.addAll(0, vendorListResponse!!.docs)
               }
+
+              listAccordionProductData[1].data = data.docs.map {
+                AccordionDataModel(
+                  title = it.title,
+                  amount = it.count_product
+                )
+              }.toMutableList()
+
+              dispatch(AppAction.UPDATE_LIST_ACCORDION_PRODUCT_DATA(listAccordionProductData))
 
               dispatch(
                 AppAction.UPDATE_BASE_STORE_DATA(

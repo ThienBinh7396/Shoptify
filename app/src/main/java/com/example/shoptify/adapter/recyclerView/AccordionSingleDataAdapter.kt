@@ -1,5 +1,6 @@
 package com.example.shoptify.adapter.recyclerView
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -25,7 +26,7 @@ class AccordionSingleDataAdapter(accordionDataModel: MutableList<AccordionDataMo
       DataBindingUtil.inflate(
         LayoutInflater.from(parent.context),
         R.layout.accordion_single_data_item_layout,
-        parent,
+        null,
         false
       )
     )
@@ -33,15 +34,22 @@ class AccordionSingleDataAdapter(accordionDataModel: MutableList<AccordionDataMo
   override fun getItemCount(): Int = mAccordionDataList.size
 
   override fun onBindViewHolder(holder: AccordionSingleDataViewHolder, position: Int) {
+
+    Log.d("Binh", "Binding hilder.............")
     holder.bindData(mAccordionDataList[position])
   }
 
   fun updateList(newList: MutableList<AccordionDataModel>) {
+
+    if (newList.size == 0) return
+    Log.d("Binh", "Sizeeeeeeee: ${newList.size}")
+
     val diffCallback = AccordionSingleDataDiffCallback(mAccordionDataList, newList)
 
     val diffResult = DiffUtil.calculateDiff(diffCallback)
 
     mAccordionDataList.clear()
+    mAccordionDataList.addAll(newList)
 
     diffResult.dispatchUpdatesTo(this)
   }

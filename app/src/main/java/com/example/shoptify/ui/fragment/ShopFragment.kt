@@ -33,6 +33,8 @@ class ShopFragment : Fragment() {
       false
     )
 
+    Log.d("Binh", "Shop fragment")
+
     mFragmentShopViewModel = FragmentShopViewModel()
     mFragmentShopBinding.mFragmentShopViewModel = mFragmentShopViewModel
 

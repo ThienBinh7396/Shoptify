@@ -33,6 +33,11 @@ fun appReducer(action: Action, appState: AppState?): AppState{
         isFirstFetchData =  action.isFirstFetch
       )
 
+    is AppAction.UPDATE_LIST_ACCORDION_PRODUCT_DATA ->
+      _appState = _appState.copy(
+        listAccordionProductData = action.listAccordionProductData
+      )
+
     is AppAction.UPDATE_BASE_STORE_DATA ->
       when(action.typeResponse){
         PRODUCT_RESPONSE ->
