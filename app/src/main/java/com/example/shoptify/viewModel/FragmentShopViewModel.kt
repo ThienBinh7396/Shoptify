@@ -1,19 +1,31 @@
 package com.example.shoptify.viewModel
 
-import android.util.Log
 import androidx.databinding.BaseObservable
-import com.example.shoptify.BR
-import com.example.shoptify.common.AccordionDataModel
-import com.example.shoptify.common.HelperAccordionProductData
+import com.example.shoptify.common.DISPLAY_GRID
+import com.example.shoptify.common.DISPLAY_LIST
+import com.example.shoptify.model.Product
 import com.example.shoptify.store
 import com.example.shoptify.store.state.AppState
+import com.example.shoptify.ui.fragment.IShopFragmentEventListener
 import org.rekotlin.StoreSubscriber
 
-class FragmentShopViewModel: BaseObservable(), StoreSubscriber<AppState> {
+class FragmentShopViewModel(var eventListener: IShopFragmentEventListener) : BaseObservable(), StoreSubscriber<AppState> {
+
   private var mAccordionListDataModelInstance = store.state.appState.listAccordionProductData
 
+  var typeList = DISPLAY_GRID
+
+  private var mProduct = mutableListOf<Product>()
+
+  fun checkIsListType() = typeList == DISPLAY_LIST
+
+  fun toggleDisplayType() {
+    typeList = if (typeList == DISPLAY_LIST) DISPLAY_GRID else DISPLAY_LIST
+    notifyChange()
+  }
+
   init {
-    store.subscribe(this){
+    store.subscribe(this) {
       it.select {
         it.appState
       }
@@ -23,8 +35,19 @@ class FragmentShopViewModel: BaseObservable(), StoreSubscriber<AppState> {
   val listAccordionData
     get() = this.mAccordionListDataModelInstance
 
+  val listProduct
+    get() = mProduct
+
   override fun newState(state: AppState) {
-    mAccordionListDataModelInstance = state.listAccordionProductData
-    notifyChange()
+
+    state.apply {
+      mAccordionListDataModelInstance = listAccordionProductData
+
+      if (productListResponse != null) {
+        mProduct = productListResponse!!.docs
+      }
+
+      notifyChange()
+    }
   }
 }

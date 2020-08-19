@@ -80,7 +80,7 @@ class SlideShowItemFragment(private val positionSlide: Int) : Fragment() {
 
   private fun bindData(data: SlideCaption) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-      tvFirstText?.text = Html.fromHtml(data.firstText, Paint.UNDERLINE_TEXT_FLAG)
+      tvFirstText?.text = Html.fromHtml("<u>${data.firstText}</u>", Html.FROM_HTML_MODE_LEGACY)
     } else {
       tvFirstText?.text = Html.fromHtml("<u>${data.firstText}</u>")
     }

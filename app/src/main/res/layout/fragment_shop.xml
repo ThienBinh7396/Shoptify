@@ -10,65 +10,116 @@
       type="com.example.shoptify.viewModel.FragmentShopViewModel" />
   </data>
 
-  <ScrollView
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:nestedScrollingEnabled="true"
+    android:elevation="0.1dp"
     tools:targetApi="lollipop">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="vertical"
-      android:paddingVertical="@dimen/padding__xl"
-      tools:context=".ui.fragment.ShopFragment">
+      android:fitsSystemWindows="true">
 
-      <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/padding__default"
-        android:layout_marginStart="@dimen/dimen__12"
-        android:layout_marginBottom="@dimen/dimen__16"
-        android:scaleType="centerInside"
-        android:scaleX="0.96"
-        android:scaleY="0.96"
-        android:src="@drawable/header_logo" />
-
-      <include
-        android:id="@+id/layoutBreadcrumb"
-        layout="@layout/breadcrumb_layout"
+      <com.google.android.material.appbar.CollapsingToolbarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed"
+        app:titleEnabled="false">
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="@color/colorWhite"
+          android:orientation="vertical"
+          android:paddingVertical="@dimen/padding__xl">
+
+          <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/padding__default"
+            android:layout_marginStart="@dimen/dimen__12"
+            android:layout_marginBottom="@dimen/dimen__16"
+            android:background="@color/colorTransparent"
+            android:scaleType="centerInside"
+            android:scaleX="0.96"
+            android:scaleY="0.96"
+            android:src="@drawable/header_logo" />
+
+
+          <include
+            android:id="@+id/layoutBreadcrumb"
+            layout="@layout/breadcrumb_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding__default">
+
+            <androidx.recyclerview.widget.RecyclerView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              app:bindAccordionProductData="@{mFragmentShopViewModel.listAccordionData}" />
+
+            <View
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/dimen__1"
+              android:layout_marginBottom="@dimen/dimen__16"
+              android:background="@color/colorBorder" />
+
+            <ImageView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/colorTransparent"
+              app:bindSrcImage="@{@drawable/banner_simple}" />
+          </LinearLayout>
+        </LinearLayout>
+
+      </com.google.android.material.appbar.CollapsingToolbarLayout>
 
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/padding__default">
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dimen__12">
 
-        <androidx.recyclerview.widget.RecyclerView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:bindAccordionProductData="@{mFragmentShopViewModel.listAccordionData}" />
+        <ImageButton
+          android:layout_width="@dimen/dimen_26"
+          android:layout_height="@dimen/dimen_26"
+          android:layout_marginEnd="@dimen/dimen__4"
+          android:background="@color/colorTransparent"
+          android:onClick="@{() -> mFragmentShopViewModel.eventListener.onToggleDisplayTypeClickListener()}"
+          android:scaleType="fitXY"
+          android:src="@drawable/ic_baseline_apps_24"
+          android:tint="@{!mFragmentShopViewModel.checkIsListType() ? @color/colorTextBlack : @color/colorTextBlurred}" />
 
-        <View
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/dimen__1"
-          android:layout_marginBottom="@dimen/dimen__16"
-          android:background="@color/colorBorder" />
-
-        <ImageView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:bindSrcImage="@{@drawable/banner_simple}"/>
-
-        <WebView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:bindTextHtml="@{ @drawable/banner_simple }"
-          tools:ignore="WebViewLayout"
-          android:hardwareAccelerated="true"/>
+        <ImageButton
+          android:layout_width="@dimen/dimen_26"
+          android:layout_height="@dimen/dimen_26"
+          android:background="@color/colorTransparent"
+          android:onClick="@{() -> mFragmentShopViewModel.eventListener.onToggleDisplayTypeClickListener()}"
+          android:scaleType="fitXY"
+          android:src="@drawable/ic_baseline_format_list_bulleted_24"
+          android:tint="@{mFragmentShopViewModel.checkIsListType() ? @color/colorTextBlack : @color/colorTextBlurred}" />
       </LinearLayout>
-    </LinearLayout>
-  </ScrollView>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:fillViewport="true"
+      android:padding="@dimen/padding__default"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+      <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bindShortProductBlock="@{mFragmentShopViewModel.listProduct}"
+        app:bindTypeDisplay="@{mFragmentShopViewModel.typeList}" />
+    </androidx.core.widget.NestedScrollView>
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

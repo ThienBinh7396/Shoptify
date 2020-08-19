@@ -22,4 +22,7 @@
   <dimen name="dimen__1">1dp</dimen>
   <dimen name="dimen__24">24dp</dimen>
   <dimen name="dimen__20">20dp</dimen>
+  <dimen name="fab_margin">16dp</dimen>
+  <dimen name="dimen_slide_show_height">166dp</dimen>
+  <dimen name="dimen_26">26dp</dimen>
 </resources>

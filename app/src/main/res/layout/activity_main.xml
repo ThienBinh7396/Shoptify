@@ -4,7 +4,8 @@
 
   <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff">
 
     <androidx.drawerlayout.widget.DrawerLayout
       android:id="@+id/dlMenu"
@@ -22,15 +23,11 @@
           android:layout_width="match_parent"
           android:layout_height="@dimen/toolbar_height" />
 
-        <FrameLayout
-          android:id="@+id/flMain"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content" />
-
         <fragment
           android:name="androidx.navigation.fragment.NavHostFragment"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
+          android:layout_height="0dp"
+          android:layout_weight="1"
           app:defaultNavHost="true"
           app:navGraph="@navigation/main_nav"
           android:id="@+id/nav_host"/>

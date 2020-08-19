@@ -1,11 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <variable
+      name="product"
+      type="com.example.shoptify.model.Product" />
+  </data>
+
   <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dimen__24">
+
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bindSrcImage="@{product.thumbnail}" />
+    </RelativeLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginVertical="@dimen/dimen__8"
+      android:gravity="center"
+      android:orientation="horizontal">
+
+      <ImageButton
+        android:layout_width="@dimen/dimen__24"
+        android:layout_height="@dimen/dimen__24"
+        android:layout_marginHorizontal="@dimen/dimen__8"
+        android:background="@color/colorTransparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_baseline_remove_red_eye_24" />
+
+      <ImageButton
+        android:layout_width="@dimen/dimen__20"
+        android:layout_height="@dimen/dimen__20"
+        android:layout_marginHorizontal="@dimen/dimen__8"
+        android:background="@color/colorTransparent"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_heart" />
+    </LinearLayout>
+
     <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="eqwe"/>
+      android:layout_marginTop="@dimen/dimen__16"
+      android:text="@{product.title}"
+      android:textAlignment="center"
+      android:textColor="@color/colorTextBlack" />
+
+    <View
+      android:layout_width="52dp"
+      android:layout_height="@dimen/dimen__1"
+      android:layout_gravity="center"
+      android:layout_marginTop="@dimen/dimen__24"
+      android:layout_marginBottom="@dimen/dimen__10"
+      android:background="@color/colorBorder"
+      android:elevation="0.5dp"
+      tools:targetApi="lollipop" />
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAlignment="center"
+      android:textColor="@color/colorLabelActive"
+      android:textSize="18sp"
+      android:textStyle="bold"
+      app:bindPriceText="@{product.price}" />
+
   </LinearLayout>
 </layout>

@@ -13,7 +13,8 @@ import com.example.shoptify.databinding.FragmentShopBinding
 import com.example.shoptify.viewModel.BreadcrumbLayoutViewModel
 import com.example.shoptify.viewModel.FragmentShopViewModel
 
-class ShopFragment : Fragment() {
+class ShopFragment : Fragment(),
+  IShopFragmentEventListener {
   private lateinit var listBreadcrumb: MutableList<Breadcrumb>
 
   private lateinit var mBreadcrumbLayoutViewModel: BreadcrumbLayoutViewModel
@@ -33,9 +34,7 @@ class ShopFragment : Fragment() {
       false
     )
 
-    Log.d("Binh", "Shop fragment")
-
-    mFragmentShopViewModel = FragmentShopViewModel()
+    mFragmentShopViewModel = FragmentShopViewModel(this)
     mFragmentShopBinding.mFragmentShopViewModel = mFragmentShopViewModel
 
     initView()
@@ -53,4 +52,14 @@ class ShopFragment : Fragment() {
 
     mFragmentShopBinding.layoutBreadcrumb.mBreadcrumbLayoutViewModel = mBreadcrumbLayoutViewModel
   }
+
+  override fun onToggleDisplayTypeClickListener() {
+
+    Log.d("Binh", "Toggle")
+    mFragmentShopViewModel.toggleDisplayType()
+  }
+}
+
+interface IShopFragmentEventListener {
+  fun onToggleDisplayTypeClickListener()
 }
