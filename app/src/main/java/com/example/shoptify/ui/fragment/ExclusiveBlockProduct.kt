@@ -7,23 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.shoptify.R
-import com.example.shoptify.databinding.FragmentHomeBinding
+import com.example.shoptify.databinding.FragmentExclusiveBlockProductBinding
 
-class HomeFragment : Fragment() {
-  private lateinit var mFragmentHomeBinding: FragmentHomeBinding
+class ExclusiveBlockProduct : Fragment() {
+
+  private lateinit var mFragmentExclusiveBlockProductBinding: FragmentExclusiveBlockProductBinding
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    mFragmentHomeBinding = DataBindingUtil.inflate(
+    mFragmentExclusiveBlockProductBinding = DataBindingUtil.inflate(
       inflater,
-      R.layout.fragment_home,
+      R.layout.fragment_exclusive_block_product,
       container,
       false
     )
-
-    return mFragmentHomeBinding.root
+    return mFragmentExclusiveBlockProductBinding.root
   }
 
 }

@@ -1,16 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="vertical"
-  tools:context=".ui.fragment.HomeFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <fragment
-    android:id="@+id/frSlideShow"
-    android:name="com.example.shoptify.ui.fragment.SlideShowFragment"
+  <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/dimen__2"/>
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-</LinearLayout>
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <fragment
+        android:id="@+id/frSlideShow"
+        android:name="com.example.shoptify.ui.fragment.SlideShowFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen__2" />
+
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dimen__24"
+        android:paddingHorizontal="@dimen/dimen__16">
+
+        <androidx.recyclerview.widget.RecyclerView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginVertical="@dimen/dimen__24"
+          android:background="@drawable/block_border_background"
+          android:paddingVertical="@dimen/dimen__24"
+          app:bindBlockService="@{true}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="@color/colorBorder"
+          app:bindBannerHome="@{true}" />
+      </LinearLayout>
+
+      <fragment
+        android:id="@+id/fragment_exclusive_block_product"
+        android:name="com.example.shoptify.ui.fragment.ExclusiveBlockProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+  </androidx.core.widget.NestedScrollView>
+</layout>

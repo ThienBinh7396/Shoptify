@@ -13,12 +13,12 @@
   <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:elevation="0.1dp"
     tools:targetApi="lollipop">
 
     <com.google.android.material.appbar.AppBarLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:elevation="0.1dp"
       android:fitsSystemWindows="true">
 
       <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -32,7 +32,8 @@
           android:layout_height="wrap_content"
           android:background="@color/colorWhite"
           android:orientation="vertical"
-          android:paddingVertical="@dimen/padding__xl">
+          android:paddingTop="@dimen/padding__xl"
+          android:paddingBottom="@dimen/dimen__4">
 
           <ImageView
             android:layout_width="wrap_content"
@@ -57,7 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/padding__default">
+            android:padding="@dimen/padding__default"
+            android:paddingBottom="0dp">
 
             <androidx.recyclerview.widget.RecyclerView
               android:layout_width="match_parent"
@@ -85,7 +87,8 @@
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/dimen__12">
+        android:paddingHorizontal="@dimen/dimen__12"
+        android:paddingVertical="@dimen/dimen__14">
 
         <ImageButton
           android:layout_width="@dimen/dimen_26"
@@ -108,18 +111,37 @@
       </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:fillViewport="true"
-      android:padding="@dimen/padding__default"
+      android:layout_height="wrap_content"
       app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-      <androidx.recyclerview.widget.RecyclerView
+      <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:bindShortProductBlock="@{mFragmentShopViewModel.listProduct}"
-        app:bindTypeDisplay="@{mFragmentShopViewModel.typeList}" />
-    </androidx.core.widget.NestedScrollView>
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingHorizontal="@dimen/padding__default">
+
+        <androidx.recyclerview.widget.RecyclerView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:bindShortProductBlock="@{mFragmentShopViewModel.listProduct}"
+          app:bindTypeDisplay="@{mFragmentShopViewModel.typeList}" />
+      </androidx.core.widget.NestedScrollView>
+
+      <RelativeLayout
+        android:id="@+id/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:fitsSystemWindows="true"
+        android:visibility="gone">
+
+        <ProgressBar
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true" />
+      </RelativeLayout>
+    </RelativeLayout>
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

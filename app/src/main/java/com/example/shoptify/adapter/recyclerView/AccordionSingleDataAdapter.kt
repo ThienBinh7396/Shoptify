@@ -34,8 +34,6 @@ class AccordionSingleDataAdapter(accordionDataModel: MutableList<AccordionDataMo
   override fun getItemCount(): Int = mAccordionDataList.size
 
   override fun onBindViewHolder(holder: AccordionSingleDataViewHolder, position: Int) {
-
-    Log.d("Binh", "Binding hilder.............")
     holder.bindData(mAccordionDataList[position])
   }
 

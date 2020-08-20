@@ -39,58 +39,80 @@
         app:bindSrcImage="@{@drawable/sale_image}"/>
     </RelativeLayout>
 
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/dimen__8"
+      android:layout_marginBottom="@dimen/dimen__16"
+      android:text="@{product.title}"
+      android:textColor="@color/colorTextBlack"
+      android:textSize="14sp"
+      android:textStyle="bold" />
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textColor="@color/colorLabelActive"
+      android:textSize="20sp"
+      android:textStyle="bold"
+      app:bindPriceText="@{product.price}" />
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@{product.description}"
+      android:textSize="13sp" />
+
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginVertical="@dimen/dimen__8"
-      android:gravity="center"
+      android:layout_marginTop="@dimen/dimen__8"
       android:orientation="horizontal">
 
       <ImageButton
-        android:layout_width="@dimen/dimen__24"
-        android:layout_height="@dimen/dimen__24"
+        android:layout_width="@dimen/dimen__18"
+        android:layout_height="@dimen/dimen__18"
+        android:layout_gravity="top"
         android:layout_marginHorizontal="@dimen/dimen__8"
+        android:layout_marginEnd="@dimen/dimen__4"
         android:background="@color/colorTransparent"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         android:src="@drawable/ic_baseline_remove_red_eye_24"
         android:tint="@color/colorTextBlack" />
 
-      <ImageButton
-        android:layout_width="@dimen/dimen__16"
-        android:layout_height="@dimen/dimen__16"
-        android:layout_marginHorizontal="@dimen/dimen__8"
-        android:background="@color/colorTransparent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_heart"
-        android:tint="@color/colorTextBlack" />
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/view_product"
+        android:textAllCaps="true"
+        android:textSize="12sp" />
     </LinearLayout>
 
-    <TextView
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/dimen__16"
-      android:text="@{product.title}"
-      android:textAlignment="center"
-      android:textColor="@color/colorTextBlack" />
+      android:orientation="horizontal">
 
-    <View
-      android:layout_width="52dp"
-      android:layout_height="@dimen/dimen__1"
-      android:layout_gravity="center"
-      android:layout_marginTop="@dimen/dimen__24"
-      android:layout_marginBottom="@dimen/dimen__10"
-      android:background="@color/colorBorder"
-      android:elevation="0.5dp"
-      tools:targetApi="lollipop" />
+      <ImageButton
+        android:layout_width="@dimen/dimen__14"
+        android:layout_height="@dimen/dimen__14"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="@dimen/dimen__8"
+        android:layout_marginEnd="@dimen/dimen__4"
+        android:background="@color/colorTransparent"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_heart"
+        android:tint="@color/colorTextBlack" />
 
-    <TextView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:textAlignment="center"
-      android:textColor="@color/colorLabelActive"
-      android:textSize="18sp"
-      android:textStyle="bold"
-      app:bindPriceText="@{product.price}" />
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/add_to_wishlist"
+        android:textAllCaps="true"
+        android:textSize="12sp" />
+    </LinearLayout>
 
     <View
       android:layout_width="92dp"

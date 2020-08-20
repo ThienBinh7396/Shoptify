@@ -22,11 +22,10 @@ import androidx.recyclerview.widget.RecyclerView.ItemAnimator
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
+import com.bumptech.glide.request.RequestOptions
 import com.example.shoptify.GlideApp
 import com.example.shoptify.R
-import com.example.shoptify.adapter.recyclerView.AccordionProductDataAdapter
-import com.example.shoptify.adapter.recyclerView.AccordionSingleDataAdapter
-import com.example.shoptify.adapter.recyclerView.ShortProductBlockAdapter
+import com.example.shoptify.adapter.recyclerView.*
 import com.example.shoptify.common.*
 import com.example.shoptify.javascriptInterface.NotifySizeJavascriptInterface
 import com.example.shoptify.javascriptInterface.NotifyUrlJavascriptInterface
@@ -76,14 +75,46 @@ class AppBindingData {
       webView.addJavascriptInterface(NotifyUrlJavascriptInterface(webView), "NotifyUrl")
     }
 
-    @BindingAdapter("app:bindSrcImage")
+    @BindingAdapter(value = ["app:bindSrcImage", "app:centerScaleType"], requireAll = false)
     @JvmStatic
-    fun bindSrcImage(imageView: ImageView, srcImage: Any?) {
+    fun bindSrcImage(imageView: ImageView, srcImage: Any?, centerScaleType: Boolean = false) {
       if (srcImage != null) {
-        GlideApp.with(imageView.context)
+        var glide = GlideApp.with(imageView.context)
           .load(srcImage)
           .placeholder(R.drawable.image_placeholder)
-          .into(imageView)
+
+        if (centerScaleType) {
+          glide = glide.fitCenter()
+        }
+
+        glide.into(imageView)
+      }
+    }
+
+    @BindingAdapter("app:bindBannerHome")
+    @JvmStatic
+    fun bindBannerHome(rcv: RecyclerView, data: Any) {
+      if (rcv.adapter == null) {
+
+        val layoutManager = GridLayoutManager(rcv.context, 1, GridLayoutManager.VERTICAL, true)
+
+        rcv.adapter = BannerHomeAdapter()
+
+        rcv.layoutManager = layoutManager
+
+      }
+    }
+    @BindingAdapter("app:bindBlockService")
+    @JvmStatic
+    fun bindBlockService(rcv: RecyclerView, data: Any) {
+      if (rcv.adapter == null) {
+
+        val layoutManager = GridLayoutManager(rcv.context, 1, GridLayoutManager.VERTICAL, false)
+
+        rcv.adapter = BlockServicesAdapter()
+
+        rcv.layoutManager = layoutManager
+
       }
     }
 
@@ -98,7 +129,11 @@ class AppBindingData {
 
       if (rcv.adapter == null) {
         rcv.adapter = AccordionSingleDataAdapter(data)
-        rcv.layoutManager = LinearLayoutManager(rcv.context, LinearLayoutManager.VERTICAL, false)
+
+        val layoutManager = GridLayoutManager(rcv.context, 1)
+        layoutManager.orientation = GridLayoutManager.VERTICAL
+
+        rcv.layoutManager = layoutManager
 
       } else {
         (rcv.adapter as AccordionSingleDataAdapter).updateList(data)
@@ -110,8 +145,8 @@ class AppBindingData {
     fun bindAccordionProductData(rcv: RecyclerView, data: MutableList<AccordionListDataModel>) {
       if (rcv.adapter == null) {
         rcv.adapter = AccordionProductDataAdapter(data, rcv.context)
-        val layoutManager = LinearLayoutManager(rcv.context)
-        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        val layoutManager = GridLayoutManager(rcv.context, 1)
+        layoutManager.orientation = GridLayoutManager.VERTICAL
 
         rcv.layoutManager = layoutManager
       } else {
@@ -121,18 +156,30 @@ class AppBindingData {
 
     @BindingAdapter(value = ["app:bindShortProductBlock", "app:bindTypeDisplay"])
     @JvmStatic
-    fun bindShortProductBlock(rcv: RecyclerView, data: MutableList<Product>, type: Int = DISPLAY_GRID) {
-      if (rcv.adapter == null) {
-        rcv.setHasFixedSize(true)
-        rcv.adapter = ShortProductBlockAdapter()
+    fun bindShortProductBlock(
+      rcv: RecyclerView,
+      data: MutableList<Product>,
+      type: Int = DISPLAY_GRID
+    ) {
+      var adapter = if (rcv.adapter == null) null else rcv.adapter as ShortProductBlockAdapter
+
+      if (adapter == null) {
+        adapter = ShortProductBlockAdapter(type)
 
         val layoutManager = GridLayoutManager(rcv.context, 1)
         layoutManager.orientation = GridLayoutManager.VERTICAL
 
         rcv.layoutManager = layoutManager
+        rcv.adapter = adapter
       }
 
-      (rcv.adapter as ShortProductBlockAdapter).updateList(data, type)
+      if (adapter.checkIsNewTypeDisplay(type)) {
+        adapter = ShortProductBlockAdapter(type)
+        rcv.adapter = adapter
+      }
+
+
+      adapter.updateList(data, type)
     }
 
     @BindingAdapter("app:bindTextToCapitalize")

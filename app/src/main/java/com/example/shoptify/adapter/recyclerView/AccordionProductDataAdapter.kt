@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoptify.R
 import com.example.shoptify.common.AccordionListDataModel
+import com.example.shoptify.common.HelperExpandAnim
 import com.example.shoptify.databinding.AccordionProductItemLayoutBinding
 
 class AccordionProductDataAdapter(
@@ -23,8 +24,13 @@ class AccordionProductDataAdapter(
   RecyclerView.Adapter<AccordionProductDataAdapter.AccordionProductDataViewHolder>() {
   private val mAccordionListDataModel: MutableList<AccordionListDataModel> = accordionListDataModel
 
+  private var expandAnim = AnimationUtils.loadAnimation(context, R.anim.expanded_view_anim)
+  private var collapseAnim = AnimationUtils.loadAnimation(context, R.anim.collapsed_view_anim)
+
   class AccordionProductDataViewHolder(
-    private val binding: AccordionProductItemLayoutBinding
+    private val binding: AccordionProductItemLayoutBinding,
+    private val expandAnim: Animation,
+    private val collapseAnim: Animation
   ) :
     RecyclerView.ViewHolder(binding.container) {
 
@@ -33,10 +39,15 @@ class AccordionProductDataAdapter(
     init {
       binding.headerLayout.setOnClickListener {
         if (positionData != -1) {
-          TransitionManager.beginDelayedTransition(binding.content, AutoTransition())
+          binding.expandView.apply {
 
-          binding.expandView.visibility =
-            if (binding.expandView.visibility == View.GONE) View.VISIBLE else View.GONE
+            visibility = if (visibility == View.GONE) {
+              View.VISIBLE
+            } else {
+              View.GONE
+            }
+          }
+
           binding.imvIcon.setImageResource(if (binding.expandView.visibility == View.GONE) R.drawable.ic_baseline_arrow_drop_down_24 else R.drawable.ic_baseline_arrow_drop_up_24)
 
         }
@@ -59,7 +70,8 @@ class AccordionProductDataAdapter(
         R.layout.accordion_product_item_layout,
         parent,
         false
-      )
+      ),
+      expandAnim, collapseAnim
     )
 
   override fun getItemCount(): Int = mAccordionListDataModel.size
