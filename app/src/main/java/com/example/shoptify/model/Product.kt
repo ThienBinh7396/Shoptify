@@ -54,3 +54,10 @@ data class ProductListAPIResponse(
   @SerializedName("data")
   val data: ProductListResponse
 ) : Serializable
+
+data class TopSaleProductAPIResponse(
+  @SerializedName("message")
+  val message: String,
+  @SerializedName("data")
+  val data: MutableList<Product>
+): Serializable

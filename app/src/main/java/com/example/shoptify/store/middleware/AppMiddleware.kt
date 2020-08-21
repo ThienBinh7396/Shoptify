@@ -24,8 +24,11 @@ val appMiddleware: Middleware<RootState> = { dispatch, _ ->
           }
 
           is AppAction.FETCH_PRODUCTS_DATA -> {
-
             fetchDataFromServerByType("product", dispatch)
+          }
+
+          is AppAction.FETCH_TOP_SALE_PRODUCTS_DATA -> {
+            fetchDataFromServerByType("top-sale", dispatch)
           }
 
           is AppAction.FETCH_VENDORS_DATA -> {
@@ -51,6 +54,11 @@ fun fetchDataFromServerByType(type: String, dispatch: DispatchFunction) {
     "product" -> {
       fetchProductDataFromServe(dispatch)
     }
+
+    "top-sale" -> {
+      fetchProductTopSaleDataFromServe(dispatch)
+    }
+
 
     "vendor" -> {
       fetchVendorDataFromServe(dispatch)
@@ -140,6 +148,39 @@ fun fetchProductDataFromServe(dispatch: DispatchFunction) {
               dispatch(
                 AppAction.UPDATE_BASE_STORE_DATA(
                   PRODUCT_RESPONSE,
+                  data
+                )
+              )
+            }
+          }
+        })
+    }
+  }
+}
+
+fun fetchProductTopSaleDataFromServe(dispatch: DispatchFunction) {
+  store.state.appState.apply {
+    APIUtils.getAPIService().apply {
+      fetchTopSale()
+        .enqueue(object : Callback<TopSaleProductAPIResponse> {
+          override fun onFailure(call: Call<TopSaleProductAPIResponse>, t: Throwable) {
+            Log.d("Binh", "Data: ${t.message}")
+          }
+
+          override fun onResponse(
+            call: Call<TopSaleProductAPIResponse>,
+            response: Response<TopSaleProductAPIResponse>
+          ) {
+            if (response.body() != null) {
+              val data = response.body()!!.data
+
+              if (productTopSaleResponse != null) {
+                data.addAll(0, productTopSaleResponse!!)
+              }
+
+              dispatch(
+                AppAction.UPDATE_BASE_STORE_DATA(
+                  PRODUCT_TOP_SALE_RESPONSE,
                   data
                 )
               )

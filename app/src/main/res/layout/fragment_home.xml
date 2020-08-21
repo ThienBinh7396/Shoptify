@@ -2,6 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
+  <data>
+
+    <variable
+      name="mFragmentHomeViewModel"
+      type="com.example.shoptify.viewModel.FragmentHomeViewModel" />
+  </data>
+
   <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,8 +31,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/dimen__24"
-        android:paddingHorizontal="@dimen/dimen__16">
+        android:paddingHorizontal="@dimen/dimen__16"
+        android:paddingBottom="@dimen/dimen__24">
 
         <androidx.recyclerview.widget.RecyclerView
           android:layout_width="match_parent"
@@ -42,11 +49,17 @@
           app:bindBannerHome="@{true}" />
       </LinearLayout>
 
-      <fragment
-        android:id="@+id/fragment_exclusive_block_product"
-        android:name="com.example.shoptify.ui.fragment.ExclusiveBlockProduct"
+      <com.example.shoptify.ui.custom.ParallaxView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <include
+          android:id="@+id/parallax_children"
+          layout="@layout/fragment_exclusive_block_product"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:fragmentHomeViewModel="@{mFragmentHomeViewModel}" />
+      </com.example.shoptify.ui.custom.ParallaxView>
     </LinearLayout>
   </androidx.core.widget.NestedScrollView>
 </layout>

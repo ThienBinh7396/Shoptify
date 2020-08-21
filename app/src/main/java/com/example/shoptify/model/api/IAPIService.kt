@@ -1,9 +1,6 @@
 package com.example.shoptify.model.api
 
-import com.example.shoptify.model.CategoryListAPIResponse
-import com.example.shoptify.model.ProductListAPIResponse
-import com.example.shoptify.model.ProductStatusListAPIResponse
-import com.example.shoptify.model.VendorListAPIResponse
+import com.example.shoptify.model.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -18,6 +15,10 @@ interface IAPIService {
   fun fetchProducts(
     @Query("page") page: Int?
   ): Call<ProductListAPIResponse>
+
+  @GET("products/top-sale")
+  fun fetchTopSale(
+  ): Call<TopSaleProductAPIResponse>
 
   @GET("vendors")
   fun fetchVendors(

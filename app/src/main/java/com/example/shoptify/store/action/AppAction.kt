@@ -12,6 +12,7 @@ sealed class AppAction : Action {
   class UPDATE_LIST_ACCORDION_PRODUCT_DATA(val listAccordionProductData: MutableList<AccordionListDataModel>): Action
 
   class FETCH_PRODUCTS_DATA: Action
+  class FETCH_TOP_SALE_PRODUCTS_DATA: Action
   class FETCH_CATEGORIES_DATA: Action
   class FETCH_PRODUCT_STATUS_DATA: Action
   class FETCH_VENDORS_DATA: Action

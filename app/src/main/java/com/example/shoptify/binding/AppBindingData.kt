@@ -154,7 +154,7 @@ class AppBindingData {
       }
     }
 
-    @BindingAdapter(value = ["app:bindShortProductBlock", "app:bindTypeDisplay"])
+    @BindingAdapter(value = ["app:bindShortProductBlock", "app:bindTypeDisplay"], requireAll = false)
     @JvmStatic
     fun bindShortProductBlock(
       rcv: RecyclerView,

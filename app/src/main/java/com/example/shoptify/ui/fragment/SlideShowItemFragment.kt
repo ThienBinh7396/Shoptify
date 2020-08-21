@@ -16,7 +16,18 @@ import com.example.shoptify.GlideApp
 import com.example.shoptify.R
 import com.example.shoptify.common.SlideCaption
 
-class SlideShowItemFragment(private val positionSlide: Int) : Fragment() {
+class SlideShowItemFragment : Fragment() {
+  companion object {
+    fun newInstance(positionSlide: Int): SlideShowItemFragment {
+      val fragment = SlideShowItemFragment()
+      val bundle = Bundle()
+      bundle.putInt("position", positionSlide)
+      fragment.arguments = bundle
+
+      return fragment
+    }
+  }
+
   private var ivBackground: ImageView? = null
   private var tvFirstText: TextView? = null
   private var tvSecondText: TextView? = null
@@ -25,6 +36,16 @@ class SlideShowItemFragment(private val positionSlide: Int) : Fragment() {
   private var viewSlideView: View? = null
 
   private var isDestroy = false
+
+  private var positionSlide = -1
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+
+    arguments?.let {
+      positionSlide = it.getInt("position")
+    }
+  }
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -87,7 +108,7 @@ class SlideShowItemFragment(private val positionSlide: Int) : Fragment() {
     tvSecondText?.text = data.secondText
     tvDescriptionText?.text = data.description
 
-    if(viewSlideView != null && ivBackground != null){
+    if (viewSlideView != null && ivBackground != null) {
       GlideApp.with(viewSlideView!!)
         .load(data.backgroundId)
         .centerCrop()

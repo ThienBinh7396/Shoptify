@@ -1,11 +1,9 @@
+
 package com.example.shoptify.store.reducer
 
 import android.util.Log
 import com.example.shoptify.common.*
-import com.example.shoptify.model.CategoryListResponse
-import com.example.shoptify.model.ProductListResponse
-import com.example.shoptify.model.ProductStatusListResponse
-import com.example.shoptify.model.VendorListResponse
+import com.example.shoptify.model.*
 import com.example.shoptify.store.action.AppAction
 import com.example.shoptify.store.state.AppState
 import com.example.shoptify.ui.dialog.LoadingDialog
@@ -43,6 +41,11 @@ fun appReducer(action: Action, appState: AppState?): AppState{
         PRODUCT_RESPONSE ->
           _appState = _appState.copy(
             productListResponse = action.data as ProductListResponse
+          )
+
+        PRODUCT_TOP_SALE_RESPONSE ->
+          _appState = _appState.copy(
+            productTopSaleResponse = action.data as MutableList<Product>
           )
 
         CATEGORY_RESPONSE ->

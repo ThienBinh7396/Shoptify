@@ -36,7 +36,7 @@
         android:layout_margin="@dimen/dimen__12"
         android:src="@drawable/sale_image"
         android:visibility="@{product.discount > 0 ? View.VISIBLE : View.GONE }"
-        app:bindSrcImage="@{@drawable/sale_image}"/>
+        app:bindSrcImage="@{@drawable/sale_image}" />
     </RelativeLayout>
 
     <LinearLayout
@@ -92,11 +92,5 @@
       android:textStyle="bold"
       app:bindPriceText="@{product.price}" />
 
-    <View
-      android:layout_width="92dp"
-      android:layout_height="1dp"
-      android:layout_gravity="center"
-      android:layout_marginTop="@dimen/dimen__12"
-      android:background="@color/colorBorder" />
   </LinearLayout>
 </layout>

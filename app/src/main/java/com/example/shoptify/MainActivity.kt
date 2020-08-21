@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity(), StoreSubscriber<AppState> {
     )
   }
 
-  fun checkIsInitializedStoreDataAndFetch() {
+  private fun checkIsInitializedStoreDataAndFetch() {
     store.state.appState.apply {
       if (productListResponse == null && !isFirstFetchData)
         store.dispatch(AppAction.FETCH_PRODUCTS_DATA())
@@ -80,6 +80,9 @@ class MainActivity : AppCompatActivity(), StoreSubscriber<AppState> {
 
       if (productStatusListResponse == null && !isFirstFetchData)
         store.dispatch(AppAction.FETCH_PRODUCT_STATUS_DATA())
+
+      if (productTopSaleResponse == null && !isFirstFetchData)
+        store.dispatch(AppAction.FETCH_TOP_SALE_PRODUCTS_DATA())
     }
   }
 
@@ -89,7 +92,7 @@ class MainActivity : AppCompatActivity(), StoreSubscriber<AppState> {
         state.loadingDialog!!.showDialog()
       }
 
-      if (!isFirstFetchData && categoryListResponse != null && productListResponse != null && vendorListResponse != null && productStatusListResponse != null) {
+      if (!isFirstFetchData && categoryListResponse != null && productListResponse != null && productTopSaleResponse != null && vendorListResponse != null && productStatusListResponse != null) {
         store.dispatch(AppAction.UPDATE_IS_FIRST_FETCH_DATA(true))
         store.dispatch(AppAction.UPDATE_IS_SHOW_LOADING_DIALOG(false))
       }

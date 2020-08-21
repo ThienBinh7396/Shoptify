@@ -42,8 +42,11 @@ class FragmentShopViewModel(var eventListener: IShopFragmentEventListener) : Bas
   val listAccordionData
     get() = this.mAccordionListDataModelInstance
 
-  val listProduct
-    get() = mProduct
+  fun getListProduct(): MutableList<Product> {
+    Log.d("Binh", "Update ttttttttttttt")
+    return mProduct
+
+  }
 
   override fun newState(state: AppState) {
 

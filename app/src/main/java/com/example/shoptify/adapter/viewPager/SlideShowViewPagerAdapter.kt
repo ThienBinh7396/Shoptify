@@ -7,7 +7,7 @@ import com.example.shoptify.ui.fragment.SlideShowItemFragment
 
 class SlideShowViewPagerAdapter(fragmentManager: FragmentManager) :
   FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-  override fun getItem(position: Int) = SlideShowItemFragment(position)
+  override fun getItem(position: Int) = SlideShowItemFragment.newInstance(position)
 
   override fun getCount() = HelperData.SLIDE_CAPTIONS.size
 

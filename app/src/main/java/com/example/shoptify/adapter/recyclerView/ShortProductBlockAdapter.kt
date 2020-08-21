@@ -1,7 +1,7 @@
 package com.example.shoptify.adapter.recyclerView
 
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
@@ -21,15 +21,19 @@ class ShortProductBlockAdapter(private var typeDisplay: Int) :
 
   class ShortProductBlockViewHolder(var binding: ShortProductBlockLayoutBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bindingData(data: Product) {
+    fun bindingData(data: Product, position: Int, total: Int) {
       binding.product = data
     }
   }
 
   class ShortProductBlockListDisplayViewHolder(var binding: ShortProductBlockLayoutDisplayListBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bindingData(data: Product) {
+    fun bindingData(data: Product, position: Int, total: Int) {
       binding.product = data
+
+      if (position == total - 1) {
+        binding.divide.visibility = View.GONE
+      }
     }
   }
 
@@ -53,8 +57,13 @@ class ShortProductBlockAdapter(private var typeDisplay: Int) :
 
   override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
     if (typeDisplay == DISPLAY_GRID) (holder as ShortProductBlockViewHolder).bindingData(
-      mProductList[position]
-    ) else (holder as ShortProductBlockListDisplayViewHolder).bindingData(mProductList[position])
+      mProductList[position],
+      position,
+      mProductList.size
+    ) else (holder as ShortProductBlockListDisplayViewHolder).bindingData(
+      mProductList[position], position,
+      mProductList.size
+    )
 
   }
 
